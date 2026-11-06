@@ -10,7 +10,6 @@
 # The merging of the .vcf and fusion report .csv files was changed to a new approach
 # removed MANE transcript worksheet
 
-# TO DO: 
 
 
 ###########################################################
