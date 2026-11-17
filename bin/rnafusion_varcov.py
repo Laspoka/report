@@ -465,7 +465,7 @@ for filename in os.listdir(input_path):
             'ar_coverage2', 'ar_discordant_mates', 'ar_split_reads1', 'ar_split_reads2', 'sf_ffmp',
             'sf_junction_reads', 'sf_spanning_reads', 'SCORE', 'TOOL_HITS']))
         for column in present_columns_numerical:
-            merged_df[column] = pd.to_numeric(merged_df[column])
+            merged_df[column] = pd.to_numeric(merged_df[column].mask(merged_df[column].eq("nan")))
 
         # limit sf_ffmp to one decimal
         if 'sf_ffmp' in merged_df.columns:
@@ -473,7 +473,7 @@ for filename in os.listdir(input_path):
 
         # add missing annotation data
         ## arriba check
-        arriba_nan_df: pd.DataFrame = merged_df[merged_df['FOUND_IN'].str.contains('arriba')]
+        arriba_nan_df: pd.DataFrame = merged_df[merged_df['FOUND_IN'].str.contains('arriba', na=False)]
         arriba_nan_df = arriba_nan_df[(arriba_nan_df["TRANSCRIPT_A"] == 'nan') | (arriba_nan_df["TRANSCRIPT_B"] == 'nan')]
         if not arriba_nan_df.empty:
             arriba_df = read_arriba_file(os.path.join(arriba_path + basename + ".arriba.fusions.tsv"))
