@@ -65,7 +65,7 @@ workflow RNAFUSION {
 */
 
 def getFilesAndCheck(dir, glob) {
-    def files = file("${dir.toUri()}/${glob}")
+    def files = files("${dir.toUri()}/${glob}")
     if (!files) {
         error("No files found matching pattern '${glob}' in directory '${dir}'")
     }
